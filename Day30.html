@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .grocery-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .grocery-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-btn {
+            cursor: pointer;
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Grocery List</h2>
+                <ul class="grocery-list" id="groceryList">
+                   
+                </ul>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Add an item" id="itemInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="addItem()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addItem() {
+            var itemInput = document.getElementById('itemInput');
+            var itemName = itemInput.value.trim();
+
+            if (itemName !== '') {
+                var groceryList = document.getElementById('groceryList');
+
+                
+                var listItem = document.createElement('li');
+                listItem.className = 'grocery-item';
+                listItem.innerHTML = `
+                    <span>${itemName}</span>
+                    <span class="remove-btn" onclick="removeItem(this)">Remove</span>
+                `;
+
+                
+                groceryList.appendChild(listItem);
+
+                
+                itemInput.value = '';
+            }
+        }
+
+        function removeItem(element) {
+            var listItem = element.parentNode;
+            var groceryList = document.getElementById('groceryList');
+
+            
+            groceryList.removeChild(listItem);
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const itemsList = document.getElementById('itemsList');
+        const newItemInput = document.getElementById('newItem');
+        const addBtn = document.getElementById('addBtn');
+
+        addBtn.addEventListener('click', function () {
+            const itemName = newItemInput.value.trim();
+
+            if (itemName !== '') {
+                addItem(itemName);
+                newItemInput.value = '';
+                newItemInput.focus();
+            }
+        });
+
+        function removeItem(itemElement) {
+            itemElement.remove();
+        }
+
+        function addItem(itemName) {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.innerHTML = `
+                <span>${itemName}</span>
+                <span class="remove-btn" onclick="removeItem(this.parentElement)">X</span>
+            `;
+            itemsList.appendChild(listItem);
+        }
+    });
+</script>
+
+</body>
+
+</html>
